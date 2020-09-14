@@ -49,8 +49,10 @@ class FetchLocationGeoData implements ShouldQueue
             }
         }
 
-        $this->location->geo_data = $features;
-        $this->location->save();
+        if (count($result) > 0) {
+            $this->location->geo_data = $features;
+            $this->location->save();
+        }
     }
 
     /**
