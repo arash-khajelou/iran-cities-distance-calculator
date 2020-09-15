@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property integer dehestan_id
  * @property Location dehestan
  * @property array geo_data
+ * @property boolean is_fetched
  *
  * Class Location
  * @package App\Models
