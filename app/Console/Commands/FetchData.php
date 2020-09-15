@@ -41,7 +41,7 @@ class FetchData extends Command
     {
         $counter = 0;
         foreach (Location::all() as $index => $location) {
-            if ($location->geo_data === null) {
+            if ($location->geo_data === null and !$location->is_fetched) {
                 $counter++;
                 dispatch(new FetchLocationGeoData($location))->delay(now()->addSeconds($counter * 20));
             }
