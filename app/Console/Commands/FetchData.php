@@ -39,8 +39,13 @@ class FetchData extends Command
      */
     public function handle()
     {
-        $location = Location::find(9);
-        dispatch(new FetchLocationGeoData($location));
+        $counter = 0;
+        foreach (Location::all() as $index => $location) {
+            if ($location->geo_data === null) {
+                $counter++;
+                dispatch(new FetchLocationGeoData($location))->delay(now()->addSeconds($counter * 20));
+            }
+        }
         return 0;
     }
 }
