@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Location dehestan
  * @property array geo_data
  * @property boolean is_fetched
+ * @property string lat
+ * @property string lon
  *
  * Class Location
  * @package App\Models
@@ -81,5 +83,13 @@ class Location extends Model
     public function dehestan()
     {
         return $this->belongsTo(Location::class, "dehestan_id", "id");
+    }
+
+    public function getParentName()
+    {
+        if ($this->parent_id === null or $this->parent === null)
+            return '';
+        $parent_name = $this->parent->name;
+        return $parent_name . " - " . $this->parent->getParentName();
     }
 }

@@ -40,10 +40,10 @@ class FetchData extends Command
     public function handle()
     {
         $counter = 0;
-        foreach (Location::all() as $index => $location) {
+        foreach (Location::where("type", 2)->get() as $index => $location) {
             if ($location->geo_data === null and !$location->is_fetched) {
                 $counter++;
-                dispatch(new FetchLocationGeoData($location))->delay(now()->addSeconds($counter * 20));
+                dispatch(new FetchLocationGeoData($location));
             }
         }
         return 0;

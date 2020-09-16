@@ -62,8 +62,9 @@ class FetchLocationGeoData implements ShouldQueue
      */
     protected function fetch()
     {
+        $name = $this->location->name;
         return Curl::to("https://photon.komoot.de/api/")->asJson()->withData([
-            "q" => $this->location->name
+            "q" => $name
         ]);
     }
 }
