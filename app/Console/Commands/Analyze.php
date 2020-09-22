@@ -60,9 +60,9 @@ class Analyze extends Command
             $parent = $location->parent;
             if ($parent !== null) {
                 $distance = sqrt(pow(($parent->lon - $location->lon), 2) + pow(($parent->lat - $location->lat), 2));
-                echo "$distance - l:$location->id - s:$parent->id - [$location->lat, $location->lon] - [$parent->lat, $parent->lon]\n$distance - $location->name - $parent->name \n";
+                echo "$distance - l:$location->id - s:$parent->id - [$location->lon, $location->lat] - [$parent->lon, $parent->lat]\n$distance - $location->name - $parent->name \n";
             } else {
-                echo "0 - l:$location->id - s:0 - [$location->lat, $location->lon] - [, ]\n0 - $location->name - null \n";
+                echo "0 - l:$location->id - s:0 - [$location->lon, $location->lat] - [, ]\n0 - $location->name - null \n";
             }
         }
     }

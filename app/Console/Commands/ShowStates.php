@@ -38,23 +38,29 @@ class ShowStates extends Command
      */
     public function handle()
     {
-        $states = Location::where("type", "1")->where("lat", null)->get();
-        foreach ($states as $state) {
-            echo $state->name . " ( " . $state->getParentName() . " ) " . "\n";
-            $geo_data_items = json_decode($state->geo_data);
-            foreach ($geo_data_items as $geo_data_item) {
-                if ($geo_data_item->properties->osm_value === "province") {
-                    $state->lat = $geo_data_item->geometry->coordinates[0];
-                    $state->lon = $geo_data_item->geometry->coordinates[1];
-                    $state->save();
-                    break;
+        $states = Location::where("type", "1")->get();
+        $count = count($states);
+        foreach ($states as $outer_index => $city) {
+            if ($city->geo_data !== null) {
+                echo $city->id . "[$outer_index of $count]: " . $city->name . " - " . $city->getParentName() . "\n";
+                $geo_data = json_decode($city->geo_data);
+                foreach ($geo_data as $index => $geo_item) {
+                    echo $index . ": [" . $geo_item->geometry->coordinates[1] . ", " .
+                        $geo_item->geometry->coordinates[0] . "]" . json_encode($geo_item->properties) . "\n";
                 }
-                echo "\t - " . $geo_data_item->properties->name .
-                    " -> " . $geo_data_item->properties->osm_key . " -> " . $geo_data_item->properties->osm_type .
-                    " -> " . $geo_data_item->properties->osm_value . "\n";
+                $data_length = count($geo_data);
+                echo $data_length . ": manual data.\n";
+                $choice = $this->ask("select number", 0);
+                if ($choice === "$data_length") {
+                    $city->lat = $this->ask("lat");
+                    $city->lon = $this->ask("lon");
+                } else {
+                    $city->lat = $geo_data[$choice]->geometry->coordinates[0];
+                    $city->lon = $geo_data[$choice]->geometry->coordinates[1];
+                }
+                $city->save();
             }
         }
-
         return 0;
     }
 }

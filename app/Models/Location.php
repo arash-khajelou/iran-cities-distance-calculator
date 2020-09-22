@@ -85,11 +85,11 @@ class Location extends Model
         return $this->belongsTo(Location::class, "dehestan_id", "id");
     }
 
-    public function getParentName()
+    public function getParentName($depth = 0)
     {
-        if ($this->parent_id === null or $this->parent === null)
+        if ($this->parent_id === null or $this->parent === null or $depth > 4)
             return '';
         $parent_name = $this->parent->name;
-        return $parent_name . " - " . $this->parent->getParentName();
+        return $parent_name . " - " . $this->parent->getParentName($depth + 1);
     }
 }
