@@ -1,0 +1,13 @@
+curl 'https://www.bahesab.ir/mdn/masir/' \
+  -H 'Connection: keep-alive' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36' \
+  -H 'Content-type: application/x-www-form-urlencoded' \
+  -H 'Accept: */*' \
+  -H 'Origin: https://www.bahesab.ir' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Referer: https://www.bahesab.ir/map/distance/' \
+  -H 'Accept-Language: en-US,en;q=0.9,fa;q=0.8,la;q=0.7' \
+  --data-raw 'string_o=%7B%22out%22%3A%7B%22num%22%3A2%2C%22name1%22%3A%22%D8%B4%D9%88%D8%B4%D8%AA%D8%B1%D8%A7%D8%B3%D8%AA%D8%A7%D9%86%D8%AE%D9%88%D8%B2%D8%B3%D8%AA%D8%A7%D9%86%22%2C%22name2%22%3A%22%D8%A8%DB%8C%D8%B1%D8%AC%D9%86%D8%AF%D8%A7%D8%B3%D8%AA%D8%A7%D9%86%D8%AE%D8%B1%D8%A7%D8%B3%D8%A7%D9%86%D8%AC%D9%86%D9%88%D8%A8%DB%8C%22%2C%22A%22%3A%22%D8%B4%D9%88%D8%B4%D8%AA%D8%B1%20%20%20%D8%A7%D8%B3%D8%AA%D8%A7%D9%86%20%D8%AE%D9%88%D8%B2%D8%B3%D8%AA%D8%A7%D9%86%22%2C%22B%22%3A%22%D8%A8%DB%8C%D8%B1%D8%AC%D9%86%D8%AF%20%20%20%D8%A7%D8%B3%D8%AA%D8%A7%D9%86%20%D8%AE%D8%B1%D8%A7%D8%B3%D8%A7%D9%86%20%D8%AC%D9%86%D9%88%D8%A8%DB%8C%22%7D%7D' \
+  --compressed

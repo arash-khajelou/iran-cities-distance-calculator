@@ -36,6 +36,9 @@ class Location extends Model
 
     protected $table = "locations";
     protected $fillable = ["id", "name", "type", "parent_id", "ostan_id", "shahr_id", "bakhsh_id", "dehestan_id"];
+    public static $types = [
+        "کشور", "استان", "شهرستان", "بخش", "دهستان"
+    ];
 
     /**
      * @return BelongsTo

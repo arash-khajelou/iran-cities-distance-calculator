@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Console\Commands;
 
 use App\Models\Location;
 use Illuminate\Bus\Queueable;
+use Illuminate\Console\Command;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -12,51 +13,56 @@ use Illuminate\Support\Facades\Log;
 use Ixudra\Curl\Builder;
 use Ixudra\Curl\Facades\Curl;
 
-class FetchLocationGeoData implements ShouldQueue
+class Bahesab implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * @var Location
+     * The name and signature of the console command.
+     *
+     * @var string
      */
-    private $location;
+    protected $signature = 'bahesab';
 
     /**
-     * Create a new job instance.
-     *
-     * @param Location $location
+     * @var Location
      */
-    public function __construct(Location $location)
+    private $start_point;
+
+    /**
+     * @var Location
+     */
+    private $end_point;
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description';
+
+    /**
+     * Create a new command instance.
+     *
+     * @param $start_point
+     * @param $end_point
+     */
+    public function __construct($start_point, $end_point)
     {
-        $this->location = $location;
+        $this->start_point = $start_point;
+        $this->end_point = $end_point;
     }
 
     /**
-     * Execute the job.
+     * Execute the console command.
      *
-     * @return void
+     * @return int
      */
     public function handle()
     {
         $result = $this->fetch()->get();
         Log::info(json_encode($result));
-        $features = [];
-        if (isset($result->features)) {
-            foreach ($result->features as $feature) {
-                if (isset($feature->properties) and
-                    isset($feature->properties->country) and
-                    $feature->properties->country === "Iran") {
-                    array_push($features, $feature);
-                }
-            }
-        }
-
-        if (count($features) > 0) {
-            $this->location->geo_data = $features;
-        }
-        $this->location->is_fetched = true;
-        $this->location->save();
-
+        return 0;
     }
 
     /**

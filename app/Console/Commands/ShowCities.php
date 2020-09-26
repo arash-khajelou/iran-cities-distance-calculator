@@ -40,7 +40,7 @@ class ShowCities extends Command
      */
     public function handle()
     {
-        $cities = Location::where("type", "3")->where("lon", null)->get();
+        $cities = Location::where("type", "4")->where("lon", null)->get();
         $count = count($cities);
         foreach ($cities as $outer_index => $city) {
             $parent = $city->parent;
@@ -84,7 +84,8 @@ class ShowCities extends Command
                         }
                         echo "p: parent point. \n";
                         echo $data_length . ": manual data.\n";
-                        $choice = $this->ask("select number", $min_distance_id);
+//                        $choice = $this->ask("select number", $min_distance_id);
+                        $choice = "p";
                     } else {
                         $choice = "p";
                     }
@@ -104,8 +105,8 @@ class ShowCities extends Command
                 }
             }
             if (!$flag) {
-                $city->lat = $this->ask("lat");
-                $city->lon = $this->ask("lon");
+                $city->lat = null;//$this->ask("lat");
+                $city->lon = null;//$this->ask("lon");
                 $city->save();
             }
         }
